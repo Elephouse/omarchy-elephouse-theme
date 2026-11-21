@@ -1,0 +1,14 @@
+#!/bin/bash
+# Runs from ~/.config/omarchy/hooks/theme-set.d after a theme change.
+case "${1:-}" in
+  elephouse | elephouse-light) ;;
+  *) exit 0 ;;
+esac
+
+for theme in "$1" elephouse elephouse-light; do
+  script="${HOME}/.config/omarchy/themes/${theme}/hooks/apply-brand"
+  if [[ -f $script ]]; then
+    bash "$script" "$1"
+    exit 0
+  fi
+done

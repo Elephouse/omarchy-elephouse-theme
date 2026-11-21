@@ -1,0 +1,44 @@
+#!/bin/bash
+# Install the Elephouse elephant as the About mark, the screensaver, and the menu button.
+set -euo pipefail
+
+theme="${1:-}"
+root=""
+for name in "$theme" elephouse elephouse-light; do
+  [[ -n $name ]] || continue
+  candidate="${HOME}/.config/omarchy/themes/${name}/branding"
+  if [[ -f ${candidate}/about.txt && -f ${candidate}/screensaver.txt && -f ${candidate}/BarWidget.qml ]]; then
+    root="$candidate"
+    break
+  fi
+done
+[[ -n $root ]] || exit 0
+
+mkdir -p "${HOME}/.config/omarchy/branding"
+cp "${root}/about.txt" "${HOME}/.config/omarchy/branding/about.txt"
+cp "${root}/screensaver.txt" "${HOME}/.config/omarchy/branding/screensaver.txt"
+if [[ -f ${root}/elephant.svg ]]; then
+  cp "${root}/elephant.svg" "${HOME}/.config/omarchy/branding/elephant.svg"
+fi
+
+plugins="${HOME}/.config/omarchy/plugins"
+menu_dir=""
+find_menu() {
+  local manifest
+  shopt -s nullglob
+  for manifest in "$plugins"/*/manifest.json; do
+    if jq -e '.omarchy.clonedFrom == "omarchy.menu"' "$manifest" >/dev/null 2>&1; then
+      menu_dir="${manifest%/manifest.json}"
+      break
+    fi
+  done
+  shopt -u nullglob
+}
+
+find_menu
+if [[ -z $menu_dir ]]; then
+  omarchy plugin clone omarchy.menu
+  find_menu
+fi
+[[ -n $menu_dir ]] || exit 0
+cp "${root}/BarWidget.qml" "${menu_dir}/BarWidget.qml"
