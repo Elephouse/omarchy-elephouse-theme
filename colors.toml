@@ -1,0 +1,39 @@
+# Elephouse, dark. Page, ink, mark, and coral are the site's own dark-mode
+# tokens (elephouse.de). The remaining ANSI colors stay in that warm range
+# so a terminal can still tell red, green, and yellow apart.
+
+mode = "dark"
+
+accent = "#ff7a45"
+selection = "#6b6320"
+selection_foreground = "#f2ede3"
+muted = "#847c70"
+
+background = "#15100c"
+dark_background = "#100c09"
+darker_background = "#0b0806"
+lighter_background = "#2a2118"
+
+foreground = "#f2ede3"
+dark_foreground = "#a9a192"
+light_foreground = "#d8d1c4"
+bright_foreground = "#f8f6f1"
+
+hyprland_active_border = "rgba(ff7a45ee)"
+hyprland_inactive_border = "rgba(2a2118aa)"
+
+red = "#e05520"
+yellow = "#d4c15a"
+orange = "#ff7a45"
+green = "#8a9a62"
+cyan = "#d8cbb8"
+blue = "#8d7b68"
+magenta = "#d4846a"
+brown = "#6b6559"
+
+bright_red = "#ff7a45"
+bright_yellow = "#efe97a"
+bright_green = "#b7c48a"
+bright_cyan = "#e6dccb"
+bright_blue = "#cbbba4"
+bright_magenta = "#f0b09a"
